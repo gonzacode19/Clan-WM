@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-principal: #00ffff;
+            --color-fondo-btn: rgba(10,25,50,0.95);
+            --color-fondo-lista: rgba(15,35,70,0.95);
+            --color-borde-activo: #00ffff;
+            --color-sombra-activo: rgba(0,255,255,0.6);
+            --color-lider: #FFD700;
+            --color-admin: #00ffcc;
+            --color-miembro: #88ccff;
+            --color-alianza: #ff00aa;
+        }
+
+        body.rojo {
+            --color-principal: #ff0040;
+            --color-fondo-btn: rgba(50,10,20,0.95);
+            --color-fondo-lista: rgba(70,15,35,0.95);
+            --color-borde-activo: #ff0040;
+            --color-sombra-activo: rgba(255,0,64,0.7);
+            --color-lider: #ffaa00;
+            --color-admin: #ff3366;
+            --color-miembro: #ff6688;
+            --color-alianza: #ff00aa;
+        }
+
+        body, html {
+            margin:0;padding:0;height:100%;overflow:hidden;
+            font-family:'Rajdhani',sans-serif;color:white;
+            transition: background 0.8s ease;
+            background: url('fondo.png') center/cover fixed no-repeat;
+        }
+
+        .container{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%;padding:20px;box-sizing:border-box;}
+
+        .logo{
+            width:190px;margin-bottom:60px;transition:all .6s;
+            filter:drop-shadow(0 0 20px var(--color-principal));
+            cursor:pointer;
+        }
+        .logo:hover{transform:scale(1.15) rotate(8deg);filter:drop-shadow(0 0 50px var(--color-principal));}
+
+        .btn{
+            position:relative;
+            width:84%;max-width:420px;padding:26px;margin:14px 0;
+            background:var(--color-fondo-btn);color:white;
+            font-family:'Cinzel',serif;font-size:34px;text-align:center;
+            border-radius:20px;cursor:pointer;
+            box-shadow:0 10px 30px rgba(0,0,0,0.6);
+            transition:all .4s ease;border:2px solid transparent;
+            display:flex;align-items:center;justify-content:center;
+        }
+
+        .btn::before{
+            content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+            background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
+            transition:.7s;
+        }
+        .btn:hover::before{left:100%;}
+
+        .btn.activo{
+            background:rgba(0,80,140,0.95);
+            border:2px solid var(--color-borde-activo);
+            box-shadow:0 0 35px var(--color-sombra-activo);
+            transform:translateY(-4px);
+            animation:pulso 2s infinite;
+            z-index:10;
+        }
+        body.rojo .btn.activo{background:rgba(140,0,50,0.95);}
+
+        @keyframes pulso{
+            0%,100%{box-shadow:0 0 25px var(--color-sombra-activo);}
+            50%{box-shadow:0 0 60px var(--color-sombra-activo);}
+        }
+
+        .lista{
+            width:84%;max-width:420px;background:var(--color-fondo-lista);border-radius:16px;
+            margin-top:10px;padding:20px 20px 600px 20px;display:none;
+            box-shadow:0 10px 30px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.3);
+            transition:all .5s;
+            max-height: 68vh;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        .lista::-webkit-scrollbar { width: 8px; }
+        .lista::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 10px; }
+        .lista::-webkit-scrollbar-thumb { 
+            background: var(--color-principal); 
+            border-radius: 10px;
+        }
+        body.rojo .lista::-webkit-scrollbar-thumb { background: #ff0040; }
+
+        .lista.abierto{display:block;animation:aparecer .5s ease;}
+
+        .nombre{font-size:24px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;gap:12px;}
+        .nombre:last-child{border-bottom:none;}
+        .lider{color:var(--color-lider);font-weight:bold;text-shadow:0 0 15px var(--color-lider);}
+        .admin{color:var(--color-admin);}
+        .miembro{color:var(--color-miembro);}
+        .alianza{color:var(--color-alianza);}
+
+        @keyframes aparecer{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="logo.png" alt="Logo Legión" class="logo" id="logo">
+
+    <!-- Miembros -->
+    <div class="btn" onclick="toggleLista(this, 'miembros')">Miembros</div>
+    <div id="miembros" class="lista">
+        <div class="nombre"><span class="miembro">⭐</span> Dianny</div>
+        <div class="nombre"><span class="miembro">⭐</span> Alexandra</div>
+        <div class="nombre"><span class="miembro">⭐</span> kiki</div>
+        <div class="nombre"><span class="miembro">⭐</span> Sonia</div>
+        <div class="nombre"><span class="miembro">⭐</span> Luis</div>
+        <div class="nombre"><span class="miembro">⭐</span> Kai</div>
+        <div class="nombre"><span class="miembro">⭐</span> Agos</div>
+        <div class="nombre"><span class="miembro">⭐</span> Kami</div>
+        <div class="nombre"><span class="miembro">⭐</span> Quesito</div>
+        <div class="nombre"><span class="miembro">⭐</span> Daniel</div>
+        <div class="nombre"><span class="miembro">⭐</span> Sacha</div>
+        <div class="nombre"><span class="miembro">⭐</span> Alex</div>
+    </div>
+
+    <!-- Administradores -->
+    <div class="btn" onclick="toggleLista(this, 'admins')">Administradores</div>
+    <div id="admins" class="lista">
+        <div class="nombre"><span class="lider">👑</span> <strong>Shir</strong></div>
+        <div class="nombre"><span class="admin">🛡️</span> Abi</div>
+        <div class="nombre"><span class="admin">🛡️</span> Eri</div>
+        <div class="nombre"><span class="admin">🛡️</span> Wily</div>
+        <div class="nombre"><span class="admin">🛡️</span> Gonza</div>
+    </div>
+
+    <!-- Alianzas -->
+    <div class="btn" onclick="toggleLista(this, 'alianzas')">Alianzas</div>
+    <div id="alianzas" class="lista">
+        <div class="nombre"><span class="alianza">🤝</span> nose</div>
+        <div class="nombre"><span class="alianza">🤝</span> nose</div>
+        <div class="nombre"><span class="alianza">🤝</span> nose</div>
+    </div>
+</div>
+
+<script>
+    /* ========================================================= */
+    /*     ★★★ AQUÍ TÚ CONTROLA TODO EL MODO ROJO ★★★          */
+    /* ========================================================= */
+    
+    // CAMBIA SOLO ESTA LÍNEA PARA CONTROLAR EL MODO:
+    const FORZAR_MODO_ROJO = null;    // true  → modo rojo permanente
+                                      // false → modo normal permanente (nadie puede activarlo)
+                                      // null  → funciona normal con clic en el logo (como antes)
+
+    // Si quieres que ni siquiera se pueda hacer clic en el logo cuando está forzado:
+    const BLOQUEAR_CLIC_LOGO = false; // true = bloquea el clic | false = permite clic aunque esté forzado
+
+    /* ========================================================= */
+    /*     EL RESTO DEL CÓDIGO (no toques nada de aquí abajo)   */
+    /* ========================================================= */
+
+    const body = document.body;
+    const logo = document.getElementById('logo');
+    const sonidoRojo = new Audio("espada.mp3");
+
+    // APLICAR MODO FORZADO AL CARGAR LA PÁGINA
+    if (FORZAR_MODO_ROJO !== null) {
+        if (FORZAR_MODO_ROJO) {
+            body.classList.add('rojo');
+            logo.src = 'red.png';
+            body.style.backgroundImage = "url('oscuro.png')";
+            setEmojis(true);
+            if (BLOQUEAR_CLIC_LOGO) logo.style.pointerEvents = 'none';
+        } else {
+            body.classList.remove('rojo');
+            logo.src = 'logo.png';
+            body.style.backgroundImage = "url('fondo.png')";
+            setEmojis(false);
+            if (BLOQUEAR_CLIC_LOGO) logo.style.pointerEvents = 'none';
+        }
+    }
+
+    // FUNCIÓN ORIGINAL (solo se ejecuta si NO está forzado)
+    logo.onclick = function() {
+        if (FORZAR_MODO_ROJO !== null) return; // ← bloquea el clic si está forzado
+
+        body.classList.toggle('rojo');
+
+        if (body.classList.contains('rojo')) {
+            logo.src = 'red.png';
+            body.style.backgroundImage = "url('oscuro.png')";
+            sonidoRojo.play();
+            setEmojis(true);
+        } else {
+            logo.src = 'logo.png';
+            body.style.backgroundImage = "url('fondo.png')";
+            setEmojis(false);
+        }
+    };
+
+    function setEmojis(rojo) {
+        document.querySelectorAll('.miembro').forEach(e => e.textContent = rojo ? "⚔️" : "⭐");
+        document.querySelectorAll('.lider').forEach(e => e.textContent = rojo ? "👿" : "👑");
+        document.querySelectorAll('.admin').forEach(e => e.textContent = rojo ? "😠" : "🛡️");
+        document.querySelectorAll('.alianza').forEach(e => e.textContent = rojo ? "🚨" : "🤝");
+    }
+
+    function toggleLista(btn, id) {
+        const lista = document.getElementById(id);
+        const yaAbierto = lista.classList.contains('abierto');
+
+        document.querySelectorAll('.lista').forEach(l => l.classList.remove('abierto'));
+        document.querySelectorAll('.btn').forEach(b => b.classList.remove('activo'));
+
+        if (!yaAbierto) {
+            lista.classList.add('abierto');
+            btn.classList.add('activo');
+        }
+    }
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.btn') && !e.target.closest('.lista') && !e.target.closest('.logo')) {
+            document.querySelectorAll('.lista').forEach(l => l.classList.remove('abierto'));
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('activo'));
+        }
+    });
+</script>
+
+</body>
+</html>
